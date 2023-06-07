@@ -25,4 +25,5 @@ Rails.application.routes.draw do
   end
 
   resources :groups, only: [:new, :create]
+  resources :words, only: [:new, :create]
 end

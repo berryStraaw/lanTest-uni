@@ -2,6 +2,8 @@ class LanguagesController < ApplicationController
   def index
     @languages= Language.all
     @language = Language.new
+    @group = Group.new
+    @word = Word.new
   end
 
   def show

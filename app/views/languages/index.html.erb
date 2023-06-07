@@ -12,6 +12,15 @@
     <%= link_to 'create group', new_group_path%>
 
     <div>
+        <%= form_for @language do |f| %>
+            <%= f.label :user_id %>
+            <%= f.collection_select :user_id, User.all, :id, :name %>
+
+            <%= f.label :language %>
+            <%= f.text_field :language %>
+            <%= f.submit "Create Language" %>
+        <% end %>
+
         Language List:
         <% @languages.each do |language| %>
             <%= turbo_frame_tag "language_#{language.id}" do %>
@@ -21,6 +30,15 @@
     </div>
 
     <div>
+        <%= form_for @group do |f| %>
+            <%= f.label :language_id %>
+                <%= f.collection_select :language_id, Language.all, :id, :language %>
+
+                <%= f.label :name %>
+            <%= f.text_field :name %>
+            <%= f.submit "Create Group" %>
+        <% end %> 
+        
         Groups list:
         <%= turbo_frame_tag "groups" do %>
         <!-- This will be replaced with the groups once a language is clicked -->
@@ -28,18 +46,24 @@
     </div>
 
     <div>
+        <%= form_for @word do |f| %>
+            <%= f.label :group_id %>
+            <%= f.collection_select :group_id, Group.all, :id, :name %>
+
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+
+            <%= f.label :meaning %>
+            <%= f.text_field :meaning %>
+            <%= f.submit "Create Word" %>
+        <% end %> 
+
         Words list:
         <%= turbo_frame_tag "words" do %>
         <!-- This will be replaced with the words once a group is clicked -->
         <% end %>
     </div>
-  <%= form_for @language do |f| %>
-  <%= f.label :user_id %>
-    <%= f.collection_select :user_id, User.all, :id, :name %>
 
-    <%= f.label :language %>
-    <%= f.text_field :language %>
-    <%= f.submit "Create Language" %>
-    <% end %>
+    
 </ul>
 
