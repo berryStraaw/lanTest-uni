@@ -1,10 +1,45 @@
 <h1>Languages</h1>
 
 <ul>
-    <% @languages.each do | language| %>
-        <li>
-        <%= link_to language.language, language%>
-        </li>
+    <%= turbo_frame_tag 'languages_display' do %>
+        <% @languages.each do | language| %>
+            <li>
+            <%= link_to language.language, language, data: { turbo: "false" }%>
+            </li>
+        <% end %>
+    <% end %>
+
+    <%= link_to 'create group', new_group_path%>
+
+    <div>
+        Language List:
+        <% @languages.each do |language| %>
+            <%= turbo_frame_tag "language_#{language.id}" do %>
+                <%= link_to language.language, language_groups_path(language), data: { turbo_action: 'replace', turbo_frame: 'groups' } %>
+            <% end %>
+        <% end %>
+    </div>
+
+    <div>
+        Groups list:
+        <%= turbo_frame_tag "groups" do %>
+        <!-- This will be replaced with the groups once a language is clicked -->
+        <% end %>
+    </div>
+
+    <div>
+        Words list:
+        <%= turbo_frame_tag "words" do %>
+        <!-- This will be replaced with the words once a group is clicked -->
+        <% end %>
+    </div>
+  <%= form_for @language do |f| %>
+  <%= f.label :user_id %>
+    <%= f.collection_select :user_id, User.all, :id, :name %>
+
+    <%= f.label :language %>
+    <%= f.text_field :language %>
+    <%= f.submit "Create Language" %>
     <% end %>
 </ul>
 

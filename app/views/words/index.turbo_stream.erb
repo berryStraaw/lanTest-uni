@@ -1,0 +1,7 @@
+<turbo-stream action="replace" target="words">
+  <template>
+    <% @word.each do |word| %>
+      <%= render partial: 'partials/word', locals: { word: word } %>
+    <% end %>
+  </template>
+</turbo-stream>

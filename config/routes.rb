@@ -13,6 +13,16 @@ Rails.application.routes.draw do
   get '/test', to: 'test#show'
   get '/test/edit', to: 'test#edit'
   patch '/test', to: 'test#update'
-  
+
   resources :languages
+
+  resources :languages do
+    resources :groups, only: :index
+  end
+
+  resources :groups do
+    resources :words, only: :index
+  end
+
+  resources :groups, only: [:new, :create]
 end

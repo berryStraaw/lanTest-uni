@@ -1,0 +1,5 @@
+<turbo-frame id="groups">
+  <% @groups.each do |group| %>
+    <%= render partial: 'partials/groups', locals: { group: group } %>
+  <% end %>
+</turbo-frame>

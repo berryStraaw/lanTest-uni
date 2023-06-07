@@ -1,0 +1,7 @@
+<turbo-stream action="replace" target="groups">
+  <template>
+    <% @groups.each do |group| %>
+      <%= render partial: 'partials/groups', locals: { group: group } %>
+    <% end %>
+  </template>
+</turbo-stream>

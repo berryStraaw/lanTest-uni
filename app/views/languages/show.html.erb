@@ -1,3 +1,66 @@
 <h1><%= @language.language %>
 
 <p> article page</p>
+
+<% @language.groups.each do |group| %>
+<%= group.name %>
+<% end %>
+
+<turbo-stream action="append" target="messages">
+  <template>
+    <div id="message_1">
+      This div will be appended to the element with the DOM ID "messages".
+    </div>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="prepend" target="messages">
+  <template>
+    <div id="message_1">
+      This div will be prepended to the element with the DOM ID "messages".
+    </div>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="message_1">
+  <template>
+    <div id="message_1">
+      This div will replace the existing element with the DOM ID "message_1".
+    </div>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="update" target="unread_count">
+  <template>
+    <!-- The contents of this template will replace the
+    contents of the element with ID "unread_count" by
+    setting innerHtml to "" and then switching in the
+    template contents. Any handlers bound to the element
+    "unread_count" would be retained. This is to be
+    contrasted with the "replace" action above, where
+    that action would necessitate the rebuilding of
+    handlers. -->
+    1
+  </template>
+</turbo-stream>
+
+<turbo-stream action="remove" target="message_1">
+  <!-- The element with DOM ID "message_1" will be removed.
+  The contents of this stream element are ignored. -->
+</turbo-stream>
+
+<turbo-stream action="before" target="current_step">
+  <template>
+    <!-- The contents of this template will be added before the
+    the element with ID "current_step". -->
+    <li>New item</li>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="after" target="current_step">
+  <template>
+    <!-- The contents of this template will be added after the
+    the element with ID "current_step". -->
+    <li>New item</li>
+  </template>
+</turbo-stream>

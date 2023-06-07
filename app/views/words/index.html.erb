@@ -1,0 +1,5 @@
+<turbo-frame id="words">
+  <% @words.each do |word| %>
+    <%= render partial: 'partials/word', locals: { word: word } %>
+  <% end %>
+</turbo-frame>
