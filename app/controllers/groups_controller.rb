@@ -2,7 +2,7 @@ class GroupsController < ApplicationController
     def index
         @language = Language.find(params[:language_id])
         @groups = @language.groups
-
+        @group = Group.new
         Rails.logger.info "----------------------------------------------GROUPS VIEW CONTROLLER----------------------------"
         Rails.logger.info @groups.inspect
         respond_to do |format|
@@ -18,7 +18,8 @@ class GroupsController < ApplicationController
       def create
         @group = Group.new(group_params)
         if @group.save
-          redirect_to :root, notice: "Group was successfully created."
+          render turbo_stream: turbo_stream.replace('groups', partial: 'partials/groups', locals: { group: @group })
+          #redirect_to :root, notice: "Group was successfully created."
         else
           render :new
         end

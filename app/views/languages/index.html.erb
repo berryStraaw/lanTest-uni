@@ -1,13 +1,6 @@
 <h1>Languages</h1>
 
 <ul>
-    <%= turbo_frame_tag 'languages_display' do %>
-        <% @languages.each do | language| %>
-            <li>
-            <%= link_to language.language, language, data: { turbo: "false" }%>
-            </li>
-        <% end %>
-    <% end %>
 
     <%= link_to 'create group', new_group_path%>
 
@@ -30,14 +23,6 @@
     </div>
 
     <div>
-        <%= form_for @group do |f| %>
-            <%= f.label :language_id %>
-                <%= f.collection_select :language_id, Language.all, :id, :language %>
-
-                <%= f.label :name %>
-            <%= f.text_field :name %>
-            <%= f.submit "Create Group" %>
-        <% end %> 
         
         Groups list:
         <%= turbo_frame_tag "groups" do %>

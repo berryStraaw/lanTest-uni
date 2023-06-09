@@ -1,4 +1,14 @@
 <turbo-frame id="groups">
+regular group
+  <%= form_for @group do |f| %>
+      <%= f.label :language_id %>
+      <%= f.collection_select :language_id, Language.all, :id, :language %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+      <%= f.submit "Create Group" %>
+  <% end %> 
+
   <% @groups.each do |group| %>
     <%= render partial: 'partials/groups', locals: { group: group } %>
   <% end %>

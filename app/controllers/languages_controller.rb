@@ -11,14 +11,8 @@ class LanguagesController < ApplicationController
   end
 
   def groups
-    Rails.logger.info "GROUPS"
-    Rails.logger.info Group.all.inspect
     @language = Language.find(params[:id])
-    Rails.logger.info "LANGUAGE"
-    Rails.logger.info @language.inspect
     @groups = @language.groups
-    Rails.logger.info "ONEGROUP"
-    Rails.logger.info @groups.inspect
   
     respond_to do |format|
       format.turbo_stream { render partial: 'partials/groups', locals: { groups: @groups } }
