@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  def index
+  def index()
       @language = Language.find(params[:language_id])
       @groups = @language.groups
       @group = Group.new
@@ -17,12 +17,15 @@ class GroupsController < ApplicationController
 
     def create
       @group = Group.new(group_params)
-      if @group.save
-        render turbo_stream: turbo_stream.replace('groups', partial: 'partials/groups', locals: { group: @group })
+      @group.save
+        #redirect_to language_groups_path(language_id: group_params[:language_id])
+        #index(group_params[:language_id])
+        #render turbo_stream: turbo_stream.replace('groupsTest', partial: 'partials/groups', locals: { group: @group })
         #redirect_to :root, notice: "Group was successfully created."
-      else
-        render :new
-      end
+        #redirect_to @group
+      #redirect_to language_groups_path(language_id: group_params[:language_id])
+      format.turbo_stream
+      format.html { redirect_to @group }
     end
   
     private

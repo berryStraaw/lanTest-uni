@@ -13,9 +13,11 @@ class LanguagesController < ApplicationController
   def groups
     @language = Language.find(params[:id])
     @groups = @language.groups
-  
+    Rails.logger.info "---------------------------------------------- groups----------------------------"
     respond_to do |format|
+      Rails.logger.info "----------------------------------------------Render groups----------------------------"
       format.turbo_stream { render partial: 'partials/groups', locals: { groups: @groups } }
+      Rails.logger.info "----------------------------------------------render groups using html----------------------------"
       format.html { redirect_to languages_path }
     end
   end

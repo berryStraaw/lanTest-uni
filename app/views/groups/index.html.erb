@@ -1,15 +1,19 @@
 <turbo-frame id="groups">
-regular group
-  <%= form_for @group do |f| %>
-      <%= f.label :language_id %>
-      <%= f.collection_select :language_id, Language.all, :id, :language %>
+  <%= turbo_frame_tag 'groupsTest' do %>
+    regular group
+    <%= form_for @group, data: { turbo_frame: 'groupsTest' } do |f| %>
+        <%= f.label :language_id %>
+        <%= f.collection_select :language_id, Language.all, :id, :language %>
 
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-      <%= f.submit "Create Group" %>
-  <% end %> 
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+        <%= f.submit "Create Group" %>
+    <% end %> 
 
-  <% @groups.each do |group| %>
-    <%= render partial: 'partials/groups', locals: { group: group } %>
+
+
+    <% @groups.each do |group| %>
+      <%= render partial: 'partials/groups', locals: { group: group } %>
+    <% end %>
   <% end %>
 </turbo-frame>

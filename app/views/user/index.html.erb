@@ -1,0 +1,37 @@
+<h1><%= @users[0].name %>
+
+<p> 1st user Profile</p>
+
+<div>
+    <%= form_for @user do |f| %>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+
+        <%= f.label :email %>
+        <%= f.text_field :email %>
+        <%= f.submit "Create user" %>
+    <% end %>
+
+</div>
+
+<turbo-frame id="new_message">
+  <form action="/user" method="post">
+  </form>
+</turbo-frame>
+
+<turbo-frame id="messages" src="/user">
+  <p>This message will be replaced by the response from /profile.</p>
+</turbo-frame>
+
+<turbo-stream action="append" target="messages">
+  <template>
+    <div id="message_1">My new message!</div>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="message_1">
+  <template>
+    <div id="message_1">This changes the existing message!</div>
+  </template>
+</turbo-stream>
+

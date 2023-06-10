@@ -6,9 +6,9 @@ Rails.application.routes.draw do
 
   root 'languages#index'
 
-  get '/profile', to: 'profile#show'
-  get '/profile/edit', to: 'profile#edit'
-  patch '/profile', to: 'profile#update'
+  get '/user', to: 'user#index'
+  get '/user/edit', to: 'user#edit'
+  patch '/user', to: 'user#update'
 
   get '/test', to: 'test#show'
   get '/test/edit', to: 'test#edit'
@@ -26,4 +26,5 @@ Rails.application.routes.draw do
 
   resources :groups, only: [:new, :create]
   resources :words, only: [:new, :create]
+  resources :users, only: [:new, :create]
 end
