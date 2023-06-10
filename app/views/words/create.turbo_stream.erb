@@ -1,3 +1,3 @@
-<%= turbo_stream.append 'words' do %>
+<%= turbo_stream.append 'wordsToAdd' do %>
   <%= render partial: 'word', locals: { word: @word } %>
 <% end %>

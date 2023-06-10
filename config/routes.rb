@@ -20,11 +20,16 @@ Rails.application.routes.draw do
     resources :groups, only: :index
   end
 
-  resources :groups do
+  resources :groups, only: [] do
     resources :words, only: :index
   end
+
+  get '/words', to: 'words#index'
 
   resources :groups, only: [:new, :create]
   resources :words, only: [:new, :create]
   resources :users, only: [:new, :create]
+
+
+
 end

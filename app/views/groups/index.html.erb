@@ -1,18 +1,25 @@
 <%= turbo_frame_tag 'groups' do %>
-<%= form_for @group do |f| %>
-    <%= f.label :language_id %>
-    <%= f.collection_select :language_id, Language.all, :id, :language %>
-
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-    <%= f.submit "Create Group" %>
-<% end %>
-
-
-Group List:
-<div id="groups">
-  <% @groups.each do |group| %>
-    <%= render 'group', group: group %>
+<div class="addableBlocksContainer addButtonContainer blockBasicStyle tileText">
+  <%= form_for @group do |f| %>
+      <%= f.hidden_field :language_id, :value => @language.id %>
+      <%= f.text_field :name, placeholder: "Add new group" %>
+      <%= f.button do %>
+          <iconify-icon icon="basil:add-outline"  width="24" height="24"></iconify-icon>
+      <% end %>
   <% end %>
 </div>
-<% end %>
+
+<div class="addableBlocksContainer">
+  <div class= "blockBasicStyle tile tileText">
+  <%= link_to 'Show all words', words_path(language_id: @language.id), data: { turbo_action: 'replace', turbo_frame: 'words' }%>
+  </div>
+  <div>
+    <turbo-frame id="groupsToAdd">
+      <% @groups.each do |group| %>
+          <%= render 'group', group: group %>
+      <% end %>
+    </turbo-frame>
+  </div>
+  <% end %>
+
+</div>

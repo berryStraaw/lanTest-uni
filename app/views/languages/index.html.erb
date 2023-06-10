@@ -1,52 +1,59 @@
+<%= stylesheet_link_tag 'languages', media: 'all' %>
+
 <script>
 function clearWordsContainer() {
-    console.log("working");
     const wordsContainer = document.getElementById('words');
-    if (wordsContainer) {
+    if (wordsContainer && wordsContainer.innerHTML.trim() !== '') {
         wordsContainer.innerHTML = '';
     }
 }
 </script>
 
-<h1>Languages</h1>
 
-<ul>
+<div class="mainContainer">
+    <div class="mainBlock">
+        <h2>Languages </h2>
+        <div class="addableBlocksContainer addButtonContainer blockBasicStyle tileText">
+            <%= form_for @language do |f| %>
+                <%= f.hidden_field :user_id, :value => @user.id %>
 
-    <%= link_to 'create group', new_group_path%>
-
-    <div>
-        <%= form_for @language do |f| %>
-            <%= f.label :user_id %>
-            <%= f.collection_select :user_id, User.all, :id, :name %>
-
-            <%= f.label :language %>
-            <%= f.text_field :language %>
-            <%= f.submit "Create Language" %>
-        <% end %>
-
-        Language List:
-        <% @languages.each do |language| %>
-            <%= turbo_frame_tag "language_#{language.id}" do %>
-                <%= link_to language.language, language_groups_path(language), onclick: "clearWordsContainer()", data: { turbo_action: 'replace', turbo_frame: 'groups' } %>
+                <%= f.text_field :language, placeholder: "Add new language" %>
+                <%= f.button do %>
+                    <iconify-icon icon="basil:add-outline"  width="24" height="24"></iconify-icon>
+                <% end %>
             <% end %>
-        <% end %>
+        </div>
+
+        <div class="addableBlocksContainer">
+            <% @languages.each do |language| %>
+                
+                <%= turbo_frame_tag "language_#{language.id}" do %>
+                    <div class= "blockBasicStyle tile tileText">
+                        <iconify-icon icon="tabler:edit" width="24" height="24"></iconify-icon>
+                        <span class="tileFill">
+                        <%= link_to language.language, language_groups_path(language), onclick: "clearWordsContainer()", data: { turbo_action: 'replace', turbo_frame: 'groups' } %>
+                        </span>
+                        <iconify-icon icon="material-symbols:delete-outline" width="24" height="24"></iconify-icon>
+                        <iconify-icon icon="typcn:arrow-right-outline" width="24" height="24"></iconify-icon>
+                    </div>
+                <% end %>
+                
+            <% end %>
+        </div>
     </div>
 
-    <div>
+    <div class="mainBlock">
         
-        Groups list:
+        <h2>Groups list:</h2>
         <%= turbo_frame_tag "groups" do %>
         <!-- This will be replaced with the groups once a language is clicked -->
         <% end %>
     </div>
-    
-    <div>
+
+    <div class="mainBlock">
         Words list:
         <%= turbo_frame_tag "words" do %>
         <!-- This will be replaced with the words once a group is clicked -->
         <% end %>
     </div>
-
-    
-    
-</ul>
+</div>

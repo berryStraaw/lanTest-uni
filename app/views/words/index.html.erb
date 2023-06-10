@@ -1,20 +1,26 @@
 <turbo-frame id="words">
-  <%= form_for @word do |f| %>
-            <%= f.label :group_id %>
-            <%= f.collection_select :group_id, Group.all, :id, :name %>
+  <div class="addableBlocksContainer addButtonContainer blockBasicStyle tileText">
+    <%= form_for @word do |f| %>
+              <% if @group %>
+                  <%= f.hidden_field :group_id, :value => @group.id %>
+              <% else %>
+                <%= f.collection_select :group_id, @language.groups, :id, :name %>
+              <% end %>
+              <%= f.text_field :name, placeholder: "Add word" %>
+              <%= f.text_field :meaning, placeholder: "Add its meaning" %>
+              <%= f.button do %>
+                  <iconify-icon icon="basil:add-outline"  width="24" height="24"></iconify-icon>
+              <% end %>
+          <% end %> 
+  </div>
 
-            <%= f.label :name %>
-            <%= f.text_field :name %>
-
-            <%= f.label :meaning %>
-            <%= f.text_field :meaning %>
-            <%= f.submit "Create Word" %>
-        <% end %> 
-
-  Words List:
-<div id="words">
-  <% @words.each do |word| %>
-    <%= render 'word', word: word %>
-  <% end %>
-</div>
+  <div class="addableBlocksContainer">
+    <div>
+      <turbo-frame id="wordsToAdd">
+        <% @words.each do |word| %>
+            <%= render 'word', word: word %>
+        <% end %>
+      </turbo-frame>
+    </div>
+  </div>
 </turbo-frame>

@@ -1,5 +1,6 @@
 class LanguagesController < ApplicationController
   def index
+    @user= User.first
     @languages= Language.all
     @language = Language.new
     @group = Group.new
