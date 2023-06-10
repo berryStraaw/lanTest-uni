@@ -26,6 +26,7 @@ class GroupsController < ApplicationController
       #redirect_to language_groups_path(language_id: group_params[:language_id])
       format.turbo_stream
       format.html { redirect_to @group }
+      #test
     end
   
     private
