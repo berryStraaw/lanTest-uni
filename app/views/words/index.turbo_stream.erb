@@ -1,7 +1,21 @@
 <turbo-stream action="replace" target="words">
   <template>
-    <% @word.each do |word| %>
-      <%= render partial: 'partials/word', locals: { word: word } %>
-    <% end %>
+  <%= form_for @word do |f| %>
+            <%= f.label :group_id %>
+            <%= f.collection_select :group_id, Group.all, :id, :name %>
+
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+
+            <%= f.label :meaning %>
+            <%= f.text_field :meaning %>
+            <%= f.submit "Create Word" %>
+        <% end %> 
+      Words List:
+<div id="words">
+  <% @words.each do |word| %>
+    <%= render 'word', word: word %>
+  <% end %>
+</div>
   </template>
 </turbo-stream>

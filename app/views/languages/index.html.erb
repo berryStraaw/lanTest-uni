@@ -1,3 +1,13 @@
+<script>
+function clearWordsContainer() {
+    console.log("working");
+    const wordsContainer = document.getElementById('words');
+    if (wordsContainer) {
+        wordsContainer.innerHTML = '';
+    }
+}
+</script>
+
 <h1>Languages</h1>
 
 <ul>
@@ -17,7 +27,7 @@
         Language List:
         <% @languages.each do |language| %>
             <%= turbo_frame_tag "language_#{language.id}" do %>
-                <%= link_to language.language, language_groups_path(language), data: { turbo_action: 'replace', turbo_frame: 'groups' } %>
+                <%= link_to language.language, language_groups_path(language), onclick: "clearWordsContainer()", data: { turbo_action: 'replace', turbo_frame: 'groups' } %>
             <% end %>
         <% end %>
     </div>
@@ -29,25 +39,14 @@
         <!-- This will be replaced with the groups once a language is clicked -->
         <% end %>
     </div>
-
+    
     <div>
-        <%= form_for @word do |f| %>
-            <%= f.label :group_id %>
-            <%= f.collection_select :group_id, Group.all, :id, :name %>
-
-            <%= f.label :name %>
-            <%= f.text_field :name %>
-
-            <%= f.label :meaning %>
-            <%= f.text_field :meaning %>
-            <%= f.submit "Create Word" %>
-        <% end %> 
-
         Words list:
         <%= turbo_frame_tag "words" do %>
         <!-- This will be replaced with the words once a group is clicked -->
         <% end %>
     </div>
 
+    
     
 </ul>

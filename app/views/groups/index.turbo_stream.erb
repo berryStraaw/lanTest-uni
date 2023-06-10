@@ -2,16 +2,20 @@
 special group
   <template>
     <%= form_for @group do |f| %>
-        <%= f.label :language_id %>
-        <%= f.collection_select :language_id, Language.all, :id, :language %>
+    <%= f.label :language_id %>
+    <%= f.collection_select :language_id, Language.all, :id, :language %>
 
-        <%= f.label :name %>
-        <%= f.text_field :name %>
-        <%= f.submit "Create Group" %>
-    <% end %> 
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.submit "Create Group" %>
+<% end %>
 
-    <% @groups.each do |group| %>
-      <%= render partial: 'partials/groups', locals: { group: group } %>
-    <% end %>
+
+Group List:
+<div id="groups">
+  <% @groups.each do |group| %>
+    <%= render 'group', group: group %>
+  <% end %>
+</div>
   </template>
 </turbo-stream>

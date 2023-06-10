@@ -17,16 +17,15 @@ class GroupsController < ApplicationController
 
     def create
       @group = Group.new(group_params)
-      @group.save
-        #redirect_to language_groups_path(language_id: group_params[:language_id])
-        #index(group_params[:language_id])
-        #render turbo_stream: turbo_stream.replace('groupsTest', partial: 'partials/groups', locals: { group: @group })
-        #redirect_to :root, notice: "Group was successfully created."
-        #redirect_to @group
-      #redirect_to language_groups_path(language_id: group_params[:language_id])
-      format.turbo_stream
-      format.html { redirect_to @group }
-      #test
+      respond_to do |format|
+        if @group.save
+          format.turbo_stream
+          format.html { redirect_to language_groups_path(@group.language), notice: "Group was successfully created." }
+        else
+          format.html { render :index }
+          format.turbo_stream { render turbo_stream: turbo_stream.replace('new_group', partial: 'groups/group', locals: { group: @group }) }
+        end
+      end
     end
   
     private
