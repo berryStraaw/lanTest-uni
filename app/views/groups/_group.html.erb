@@ -4,7 +4,10 @@
     <span class="tileFill">
     <%= link_to group.name, group_words_path(group), data: { turbo_action: 'replace', turbo_frame: 'words' }%>
     </span>
-    <iconify-icon icon="material-symbols:delete-outline" width="24" height="24"></iconify-icon>
+    <%= link_to language_group_path(language_id: group.language_id, id: group.id), data: { turbo_action: 'replace', turbo_frame: "group#{group.id}", turbo_method: :delete } do %>
+      <iconify-icon icon="material-symbols:delete-outline" width="24" height="24"></iconify-icon>
+    <% end %>
     <iconify-icon icon="typcn:arrow-right-outline" width="24" height="24"></iconify-icon>
+    
   </div>
 <% end %>

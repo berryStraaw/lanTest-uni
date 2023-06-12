@@ -16,12 +16,15 @@ Rails.application.routes.draw do
 
   resources :languages
 
+  resources :languages, only: [:destroy]
+
+
   resources :languages do
-    resources :groups, only: :index
+    resources :groups, only: [:index, :destroy]
   end
 
   resources :groups, only: [] do
-    resources :words, only: :index
+    resources :words, only: [:index, :destroy]
   end
 
   get '/words', to: 'words#index'

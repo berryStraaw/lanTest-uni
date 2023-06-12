@@ -3,12 +3,23 @@ class GroupsController < ApplicationController
       @language = Language.find(params[:language_id])
       @groups = @language.groups
       @group = Group.new
-      Rails.logger.info "----------------------------------------------GROUPS VIEW CONTROLLER----------------------------"
-      Rails.logger.info @groups.inspect
+      #Rails.logger.info "----------------------------------------------GROUPS VIEW CONTROLLER----------------------------"
+      #Rails.logger.info @groups.inspect
       respond_to do |format|
         format.turbo_stream
         format.html
       end
+  end
+
+  def destroy
+    @language = Language.find(params[:language_id])
+    @group = @language.groups.find(params[:id])
+    @group.destroy
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to language_groups_path(@language), notice: 'Group was successfully destroyed.' }
+    end
   end
 
   def new

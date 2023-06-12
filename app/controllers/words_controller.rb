@@ -24,6 +24,17 @@ class WordsController < ApplicationController
         end
     end
 
+    def destroy
+      @group = Group.find(params[:group_id])
+      @word = @group.words.find(params[:id])
+      @word.destroy
+
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to group_words_path(@group), notice: 'Word was successfully destroyed.' }
+      end
+    end
+    
     def new
       @word = Word.new
     end

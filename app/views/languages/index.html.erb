@@ -34,6 +34,9 @@ function clearWordsContainer() {
                         <%= link_to language.language, language_groups_path(language), onclick: "clearWordsContainer()", data: { turbo_action: 'replace', turbo_frame: 'groups' } %>
                         </span>
                         <iconify-icon icon="material-symbols:delete-outline" width="24" height="24"></iconify-icon>
+                        <%= link_to language_path(language), data: { turbo_action: 'replace', turbo_frame: "language_#{language.id}", turbo_method: :delete } do %>
+                            <iconify-icon icon="material-symbols:delete-outline" width="24" height="24"></iconify-icon>
+                        <% end %>
                         <iconify-icon icon="typcn:arrow-right-outline" width="24" height="24"></iconify-icon>
                     </div>
                 <% end %>
@@ -43,15 +46,19 @@ function clearWordsContainer() {
     </div>
 
     <div class="mainBlock">
-        
-        <h2>Groups list:</h2>
+        <% if @group.name %>
+            <%= @group.name%>
+        <%else %>
+            <h2>Groups</h2>
+        <%end%>
+
         <%= turbo_frame_tag "groups" do %>
         <!-- This will be replaced with the groups once a language is clicked -->
         <% end %>
     </div>
 
     <div class="mainBlock">
-        Words list:
+        <h2>Words</h2>
         <%= turbo_frame_tag "words" do %>
         <!-- This will be replaced with the words once a group is clicked -->
         <% end %>

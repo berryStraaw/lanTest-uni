@@ -11,6 +11,16 @@ class LanguagesController < ApplicationController
     @language= Language.find(params[:id])
   end
 
+  def destroy
+    @language = Language.find(params[:id])
+    @language.destroy
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to :root, notice: 'Language was successfully destroyed.' }
+    end
+  end
+
   def new
     @language = Language.new
   end
