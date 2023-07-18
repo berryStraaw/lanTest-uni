@@ -2,6 +2,9 @@
 - [x] show all words
 - [x] language style
 
+
+-----------------------Styles-----------------------
+
 - [ ] Nav style
 - [ ] language mobile style
 - [ ] login style
@@ -9,6 +12,8 @@
 - [ ] mobile style
 - [ ] tile text style
 
+
+-----------------------QOL/Bugs/Features-----------------------
 - [ ] profile page
 - [ ] Login page
 
@@ -17,4 +22,7 @@
 - [ ] ? Show language/group names
 - [ ] make buttons functional
 - [ ] check inputs
-- [ ] on delete clear fieldshunt
+- [ ] on delete clear fields
+- [ ] No groups selector for words on language selection
+
+- [ ] Refractor Routes

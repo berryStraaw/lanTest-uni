@@ -1,7 +1,11 @@
 class LanguagesController < ApplicationController
   def index
-    @user= User.first
-    @languages= Language.all
+    if !user_signed_in?
+      redirect_to :user_session
+      return
+    end
+    @user= current_user
+    @languages= @user.languages
     @language = Language.new
     @group = Group.new
     @word = Word.new

@@ -6,6 +6,12 @@ Rails.application.routes.draw do
 
   root 'languages#index'
 
+  devise_for :users, controllers: { 
+    sessions: "users/sessions",
+    registrations: "users/registrations",
+    passwords: "users/passwords"
+  }
+
   get '/user', to: 'user#index'
   get '/user/edit', to: 'user#edit'
   patch '/user', to: 'user#update'

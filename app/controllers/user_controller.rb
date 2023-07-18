@@ -1,8 +1,14 @@
 class UserController < ApplicationController
     def index
         # Logic to fetch and display the user's profile
+
+        if user_signed_in?
+          @user= current_user
+        else
+          redirect_to :user_session
+        end
+
         @users= User.all
-        @user= User.new
       end
     
       def edit

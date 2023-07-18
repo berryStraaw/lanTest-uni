@@ -5,4 +5,7 @@
     <%= link_to 'User', '/user' %>
     <%= link_to 'tests', '/test'%>
     <%= link_to 'home', root_path%>
+    <% if user_signed_in? %> 
+        <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
+    <% end %>
 </nav>
