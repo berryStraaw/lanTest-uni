@@ -1,0 +1,30 @@
+{
+  "name": "lanTest",
+  "version": "1.0.0",
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "main": "index.js",
+  "directories": {
+    "example": "example",
+    "lib": "lib",
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^8.45.0",
+    "eslint-plugin-html": "^7.1.0"
+  },
+  "scripts": {
+    "lint": "eslint app/javascript/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/berryStraaw/lanTest-uni.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/berryStraaw/lanTest-uni/issues"
+  },
+  "homepage": "https://github.com/berryStraaw/lanTest-uni#readme"
+}

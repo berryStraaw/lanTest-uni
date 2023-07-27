@@ -1,0 +1,9 @@
+<h2> Your tests <h2>
+
+<% if @tests%>
+    <% if @tests.length>0 %>
+        <% @tests.each do |test| %>
+            <%=test.groups[0].name%>
+        <% end %>
+    <% end %>
+<% end %>

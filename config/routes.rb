@@ -1,44 +1,38 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
-
   root 'languages#index'
 
-  devise_for :users, controllers: { 
-    sessions: "users/sessions",
-    registrations: "users/registrations",
-    passwords: "users/passwords"
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations',
+    passwords: 'users/passwords'
   }
 
   get '/user', to: 'user#index'
   get '/user/edit', to: 'user#edit'
   patch '/user', to: 'user#update'
 
-  get '/test', to: 'test#show'
-  get '/test/edit', to: 'test#edit'
-  patch '/test', to: 'test#update'
-
   resources :languages
 
-  resources :languages, only: [:destroy]
-
-
+  resources :tests do
+    member do
+      patch :update_input
+    end
+  end
   resources :languages do
-    resources :groups, only: [:index, :destroy]
+    resources :groups, only: %i[index destroy]
   end
 
   resources :groups, only: [] do
-    resources :words, only: [:index, :destroy]
+    resources :words, only: %i[index destroy]
   end
 
   get '/words', to: 'words#index'
 
-  resources :groups, only: [:new, :create]
-  resources :words, only: [:new, :create]
-  resources :users, only: [:new, :create]
+  resources :groups, only: %i[new create]
+  resources :words, only: %i[new create]
+  resources :users, only: %i[new create]
 
-
-
+  resources :performances, only: [:index, :show]
 end

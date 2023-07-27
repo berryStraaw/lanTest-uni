@@ -1,0 +1,17 @@
+<%= @test.id %>
+<%= @group.name %>
+
+
+<% @test.questions.each do |question| %>
+    <%=question%>
+<% end%>
+
+<%= form_with(model: @test, url: update_input_test_path(@test), method: :patch, local: true) do |f| %>
+  <% @test.questions.each_with_index do |question, index| %>
+    <div>
+      <label><%= question %></label>
+      <%= text_field_tag "test[input][]", @test.input[index] %>
+    </div>
+  <% end %>
+  <%= f.submit "Submit" %>
+<% end %>

@@ -1,18 +1,21 @@
+# frozen_string_literal: true
+
 class LanguagesController < ApplicationController
   def index
-    if !user_signed_in?
+    unless user_signed_in?
       redirect_to :user_session
       return
     end
-    @user= current_user
-    @languages= @user.languages
+    @user = current_user
+    @languages = @user.languages
     @language = Language.new
     @group = Group.new
     @word = Word.new
+    @test = Test.new
   end
 
   def show
-    @language= Language.find(params[:id])
+    @language = Language.find(params[:id])
   end
 
   def destroy
@@ -32,7 +35,7 @@ class LanguagesController < ApplicationController
   def create
     @language = Language.new(language_params)
     if @language.save
-      redirect_to :root, notice: "Language was successfully created."
+      redirect_to :root, notice: 'Language was successfully created.'
     else
       render :new
     end

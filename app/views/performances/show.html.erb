@@ -1,0 +1,24 @@
+<h1>Performances</h1>
+
+
+<% if @test.name%>
+    <%= @test.name%>
+<% end %>
+<br>
+
+the questions were:
+<% @questions.each do |question| %>
+    <%=question%>
+<%end%>
+<br>
+the answers were:
+<% @answers.each do |answer| %>
+    <%=answer%>
+<%end%>
+<br>
+the inputs were:
+<% @input.each do |input| %>
+    <%=input%>
+<%end%>
+<br>
+you got <%=@correct_answers%> questions correct out of <%= @questions.length%>

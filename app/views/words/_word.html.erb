@@ -4,6 +4,9 @@
         <span class="tileFill">
         <%= word.name %>
         </span>
+        <span class="tileFill">
+        <%= word.meaning %>
+        </span>
         <%= link_to group_word_path(group_id: word.group_id, id: word.id), data: { turbo_action: 'replace', turbo_frame: "word#{word.id}", turbo_method: :delete } do %>
             <iconify-icon icon="material-symbols:delete-outline" width="24" height="24"></iconify-icon>
         <% end %>
