@@ -43,7 +43,20 @@ class GroupsController < ApplicationController
     end
   end
 
+  def update
+    @group = Group.find(params[:id])
+    if @group.update(group_update_params)
+      render json: { name: @group.name }
+    else
+      render json: { error: 'Could not save changes' }, status: :unprocessable_entity
+    end
+  end
+
   private
+
+  def group_update_params
+    params.require(:group).permit(:name) # Add any other group parameters
+  end
 
   def group_params
     params.require(:group).permit(:name, :language_id) # Add any other group parameters

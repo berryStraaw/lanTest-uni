@@ -1,6 +1,11 @@
+.loginActions {
+    max-width: 90vw;
+    margin: 0 auto 0;
+}
+
 .loginActions form{
     background-color: #FAFAFA;
-    width: 300px;
+    max-width: 90vw;
     margin: 100px auto;
     display: flex;
     flex-direction: column;
@@ -25,16 +30,31 @@
 
 .loginActions .actionLinks{
     display: flex;
+    gap:20px;
+    flex-wrap: wrap;
 }
 
 .loginActions form .actions{
     margin-bottom: 24px;
+    width: 90%;
 }
 
 .loginActions form .actions input{
-    width: 300px;
+    width: 100%;
     height: 30px;
     background-color: #ACFF8E;
     border-radius: 30px;
     border: none;
+}
+
+
+@media (min-width: 450px) {
+    .loginActions form{
+        width: 300px;
+    }
+    .loginActions .actionLinks{
+        display: flex;
+        gap:20px;
+        flex-wrap: nowrap;
+    }
 }

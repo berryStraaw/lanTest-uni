@@ -7,15 +7,187 @@ function clearWordsContainer() {
         wordsContainer.innerHTML = '';
     }
 }
-</script>
 
+function toggleIcon(place){
+    let id
+    if(place==='lan'){
+        id="#mainBlock_toggle_icon"
+    }
+    else if(place==='group'){
+        id="#mainBlock_toggle_icon_group"
+    }
+    else{
+        id="#mainBlock_toggle_icon_word"
+    }
+    let toggleIcon = document.querySelector(id);
+
+    if (toggleIcon.innerHTML === '<iconify-icon icon="teenyicons:down-outline" width="20"></iconify-icon>') {
+            toggleIcon.innerHTML = '<iconify-icon icon="teenyicons:up-outline" width="20"></iconify-icon>';
+    } 
+    else {
+        toggleIcon.innerHTML = '<iconify-icon icon="teenyicons:down-outline" width="20"></iconify-icon>';
+    }
+}
+function toggleLanguage(){
+    toggleIcon('lan');
+    const languageToggle = document.querySelectorAll('.languageToggle');
+
+    if (languageToggle[0].style.display === "none" || languageToggle[0].style.display === "") {
+            languageToggle[0].style.display = "flex";
+            languageToggle[1].style.display = "block";
+    } 
+    else {
+        languageToggle[0].style.display = "none";
+        languageToggle[1].style.display = "none";
+    }
+}
+
+function toggleGroup(){
+    toggleIcon('group');
+    const groupToggle = document.querySelectorAll('.groupToggle');
+    if(groupToggle[0]){
+        if (groupToggle[0].style.display === "none" || groupToggle[0].style.display === "") {
+            groupToggle[0].style.display = "flex";
+            groupToggle[1].style.display = "block";
+        } 
+        else {
+            groupToggle[0].style.display = "none";
+            groupToggle[1].style.display = "none";
+        }
+    }
+}
+
+function toggleWord(){
+    toggleIcon('word');
+    const wordToggle = document.querySelectorAll('.wordToggle');
+    if(wordToggle[0]){
+        if (wordToggle[0].style.display === "none" || wordToggle[0].style.display === "") {
+            wordToggle[0].style.display = "flex";
+            wordToggle[1].style.display = "block";
+        } 
+        else {
+            wordToggle[0].style.display = "none";
+            wordToggle[1].style.display = "none";
+        }
+    }
+}
+
+/* function toggleLanguageEdit() {
+    // Get all elements with the class "tileFill"
+    const tiles = document.querySelectorAll('.languageField');
+
+    tiles.forEach((tile) => {
+        // Get the link within the tile
+        const link = tile.querySelector('a');
+
+        // If the content is already an input field, switch it back to regular text
+        if (tile.querySelector('input')) {
+            const inputValue = tile.querySelector('input').value;
+            link.textContent = inputValue; // Replace the input field with the value
+            tile.querySelector('input').remove(); // Remove the input field
+            link.style.display = 'block'; // Show the link again
+        } else {
+            // Otherwise, switch the content to an input field with the current text as the value
+            const currentText = link.textContent;
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = currentText;
+            input.onblur = function() { saveChanges(this, link); };
+            tile.appendChild(input); // Add the input field to the tile
+            link.style.display = 'none'; // Hide the link
+        }
+    });
+}
+
+function saveChanges(input, link) {
+    const inputValue = input.value;
+    link.textContent = inputValue; // Update the link text
+    // You could save the changes to the server here, using the link or another identifier to determine which link was edited
+    console.log(`Saved changes to link: ${inputValue}`);
+} */
+
+function editLanguage(languageId) {
+  const element = document.getElementById(`language_${languageId}_name`);
+  const languageName = element.innerText.trim();
+  element.innerHTML = `<input type="text" value="${languageName}" onblur="saveLanguage(${languageId}, this.value)" />`;
+  element.querySelector('input').focus();
+}
+
+function saveLanguage(languageId, newValue) {
+  fetch(`/languages/${languageId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content
+    },
+    body: JSON.stringify({ language: { language: newValue } })
+  })
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById(`language_${languageId}_name`).innerHTML = `<a onclick="clearWordsContainer()" data-turbo-action="replace" data-turbo-frame="groups" href="/languages/${languageId}/groups">${data.language}</a>`;;
+  });
+}
+
+function editGroup(groupId) {
+  const element = document.getElementById(`group_${groupId}_name`);
+  const groupName = element.innerText.trim();
+  element.innerHTML = `<input type="text" value="${groupName}" onblur="saveGroup(${groupId}, this.value)" />`;
+  element.querySelector('input').focus();
+}
+
+function saveGroup(groupId, newValue) {
+  fetch(`/groups/${groupId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content
+    },
+    body: JSON.stringify({ group: { name: newValue } })
+  })
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById(`group_${groupId}_name`).innerHTML = `<a data-turbo-action="replace" data-turbo-frame="words" href="/groups/${groupId}/words">${data.name}</a>`;;
+  });
+}
+
+
+function editWord(wordId) {
+  const nameElement = document.getElementById(`word_${wordId}_name`);
+  const meaningElement = document.getElementById(`word_${wordId}_meaning`);
+  const wordName = nameElement.innerText.trim();
+  const wordMeaning = meaningElement.innerText.trim();
+  nameElement.innerHTML = `<input type="text" value="${wordName}" onblur="saveWord(${wordId}, this.value, '${wordMeaning}')" />`;
+  meaningElement.innerHTML = `<input type="text" value="${wordMeaning}" onblur="saveWord(${wordId}, '${wordName}', this.value)" />`;
+}
+
+function saveWord(wordId, newName, newMeaning) {
+  fetch(`/words/${wordId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content
+    },
+    body: JSON.stringify({ word: { name: newName, meaning: newMeaning } })
+  })
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById(`word_${wordId}_name`).innerText = data.name;
+    document.getElementById(`word_${wordId}_meaning`).innerText = data.meaning;
+  });
+}
+
+</script>
 
 <div class="mainContainer">
     
 
     <div class="mainBlock">
-        <h2>Languages </h2>
-        <div class="addableBlocksContainer addButtonContainer blockBasicStyle tileText">
+        <div class="mainBlockControlls">
+            <h2>Languages </h2>
+            <button onClick="toggleLanguage()" class="mainBlock_toggle" id= "mainBlock_toggle_icon"> <iconify-icon icon="teenyicons:up-outline" width="20"></iconify-icon></button>
+        </div>
+        
+        <div class="blockActions addButtonContainer tileText languageToggle" style="display: flex;">
             <%= form_for @language do |f| %>
                 <%= f.hidden_field :user_id, :value => @user.id %>
 
@@ -24,21 +196,23 @@ function clearWordsContainer() {
                     <iconify-icon icon="basil:add-outline"  width="24" height="24"></iconify-icon>
                 <% end %>
             <% end %>
+
         </div>
 
-        <div class="addableBlocksContainer">
+        <div class="tileContainer languageToggle">
             <% @languages.each do |language| %>
                 
                 <%= turbo_frame_tag "language_#{language.id}" do %>
-                    <div class= "blockBasicStyle tile tileText">
-                        <iconify-icon icon="tabler:edit" width="24" height="24"></iconify-icon>
-                        <span class="tileFill">
+                    <div class="tile tileText">
+                        <span class="tileFill languageField" id="language_<%= language.id %>_name">
                         <%= link_to language.language, language_groups_path(language), onclick: "clearWordsContainer()", data: { turbo_action: 'replace', turbo_frame: 'groups' } %>
                         </span>
                         
                         <%= link_to language_path(language), data: { turbo_action: 'replace', turbo_frame: "language_#{language.id}", turbo_method: :delete } do %>
                             <iconify-icon icon="material-symbols:delete-outline" width="24" height="24"></iconify-icon>
                         <% end %>
+
+                        <iconify-icon icon="tabler:edit" width="24" height="24" onclick="editLanguage(<%= language.id %>)"></iconify-icon>
                         <iconify-icon icon="typcn:arrow-right-outline" width="24" height="24"></iconify-icon>
                     </div>
                 <% end %>
@@ -48,11 +222,10 @@ function clearWordsContainer() {
     </div>
 
     <div class="mainBlock">
-        <% if @group.name %>
-            <%= @group.name%>
-        <%else %>
-            <h2>Groups</h2>
-        <%end%>
+        <div class="mainBlockControlls">
+            <h2>Groups </h2>
+            <button onClick="toggleGroup()" class="mainBlock_toggle" id= "mainBlock_toggle_icon_group"> <iconify-icon icon="teenyicons:up-outline" width="20"></iconify-icon></button>
+        </div>
 
         <%= turbo_frame_tag "groups" do %>
         <!-- This will be replaced with the groups once a language is clicked -->
@@ -60,7 +233,11 @@ function clearWordsContainer() {
     </div>
 
     <div class="mainBlock">
-        <h2>Words</h2>
+        <div class="mainBlockControlls">
+            <h2>Words </h2>
+            <button onClick="toggleWord()" class="mainBlock_toggle" id= "mainBlock_toggle_icon_word"> <iconify-icon icon="teenyicons:up-outline" width="20"></iconify-icon></button>
+        </div>
+        
         <%= turbo_frame_tag "words" do %>
         <!-- This will be replaced with the words once a group is clicked -->
         <% end %>

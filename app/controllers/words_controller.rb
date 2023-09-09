@@ -59,7 +59,20 @@ class WordsController < ApplicationController
     end
   end
 
+  def update
+    @word = Word.find(params[:id])
+    if @word.update(word_update_params)
+      render json: { name: @word.name, meaning: @word.meaning }
+    else
+      render json: { error: 'Could not save changes' }, status: :unprocessable_entity
+    end
+  end
+  
   private
+  
+  def word_update_params
+    params.require(:word).permit(:name, :meaning)
+  end
 
   def word_params
     params.require(:word).permit(:name, :group_id, :meaning)

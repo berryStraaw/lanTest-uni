@@ -1,0 +1,28 @@
+h2{
+    text-align: center;
+}
+
+.performancesDisplay{
+    margin: 0 auto;
+    max-width: 250px;
+    display: flex;
+    justify-content: center;
+}
+
+.performancesDisplayInner{
+    display: flex;
+    flex-direction: column  ;
+    gap:5px;
+    }
+
+    @media (min-width: 450px) {
+        .performancesDisplay{
+            max-width: 400px;
+        }
+    }
+
+    @media (min-width: 650px) {
+        .performancesDisplay{
+            max-width: 600px;
+        }
+    }

@@ -34,3 +34,5 @@
 - [ ] info button for words box saying you can separate meanings by /,
 - [ ] on group deletion doesnt display asociated tests
 - [ ] on language deletion doesnt display asociated tests
+- [ ] prevent page refreshes?
+- [ ] Case insensitive checks for tests

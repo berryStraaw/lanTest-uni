@@ -1,11 +1,13 @@
-<%= @test.id %>
+<%= stylesheet_link_tag 'tests', media: 'all' %>
+
+<h2>
 <%= @group.name %>
+ group test
+</h2>
 
 
-<% @test.questions.each do |question| %>
-    <%=question%>
-<% end%>
-
+<div class="testsDisplay">
+<div class="testsDisplayInner">
 <%= form_with(model: @test, url: update_input_test_path(@test), method: :patch, local: true) do |f| %>
   <% @test.questions.each_with_index do |question, index| %>
     <div>
@@ -15,3 +17,6 @@
   <% end %>
   <%= f.submit "Submit" %>
 <% end %>
+
+</div>
+</div>

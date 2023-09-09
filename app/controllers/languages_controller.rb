@@ -41,7 +41,20 @@ class LanguagesController < ApplicationController
     end
   end
 
+  def update
+    @language = Language.find(params[:id])
+    if @language.update(language_update_params)
+      render json: { language: @language.language }
+    else
+      render json: { error: 'Could not save changes' }, status: :unprocessable_entity
+    end
+  end
+
   private
+
+  def language_update_params
+    params.require(:language).permit(:language)
+  end
 
   def language_params
     params.require(:language).permit(:language, :user_id)

@@ -1,21 +1,19 @@
 <turbo-frame id="words">
-  <div class="addableBlocksContainer addButtonContainer blockBasicStyle tileText">
-    <%= form_for @word do |f| %>
-              <% if @group %>
-                  <%= f.hidden_field :group_id, :value => @group.id %>
-              <% else %>
-                <%= f.collection_select :group_id, @language.groups, :id, :name %>
-              <% end %>
-              <%= f.text_field :name, placeholder: "Add word" %>
-              <%= f.text_field :meaning, placeholder: "Add its meaning" %>
-              <%= f.button do %>
-                  <iconify-icon icon="basil:add-outline"  width="24" height="24"></iconify-icon>
-              <% end %>
-          <% end %> 
-  </div>
+  <div class=" blockActions addableBlocksContainer addButtonContainer blockBasicStyle tileText wordToggle" style="display: flex;">
+    <%= form_for @word, :html => {:class => "wordsForm"} do |f| %>
+      <% if @group %>
+          <%= f.hidden_field :group_id, :value => @group.id %>
+      <% else %>
+        <%= f.collection_select :group_id, @language.groups, :id, :name %>
+      <% end %>
+      <%= f.text_field :name, placeholder: "Add word" %>
+      <%= f.text_field :meaning, placeholder: "Add its meaning" %>
+      <%= f.button do %>
+          <iconify-icon icon="basil:add-outline"  width="24" height="24"></iconify-icon>
+      <% end %>
+    <% end %> 
 
-  <div class="addableBlocksContainer addButtonContainer blockBasicStyle tileText">
-    <%= form_for(@test, data: { turbo: false }) do |f| %>
+    <%= form_for(@test, data: { turbo: false }, :html => {:class => "blockAddWordsAction"}) do |f| %>
         <%= f.hidden_field :user_id, :value => @user.id %>
         Create a test for
         <% if @group %>
@@ -30,10 +28,10 @@
         <% end %>
     <% end %>
 
-    
   </div>
 
-  <div class="addableBlocksContainer">
+
+  <div class="addableBlocksContainer wordToggle">
     <div>
       <turbo-frame id="wordsToAdd">
         <% @words.each do |word| %>

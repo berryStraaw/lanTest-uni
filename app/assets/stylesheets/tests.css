@@ -1,0 +1,31 @@
+h2{
+    text-align: center;
+}
+
+.testsDisplay{
+    margin: 0 auto;
+    max-width: 250px;
+    display: flex;
+    justify-content: center;
+}
+
+.testsDisplayInner form div{
+    margin-bottom: 10px;
+}
+.testsDisplayInner{
+    display: flex;
+    flex-direction: column  ;
+    gap:5px;
+    }
+
+    @media (min-width: 450px) {
+        .testsDisplay{
+            max-width: 400px;
+        }
+    }
+
+    @media (min-width: 650px) {
+        .testsDisplay{
+            max-width: 600px;
+        }
+    }

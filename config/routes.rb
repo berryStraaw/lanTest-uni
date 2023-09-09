@@ -30,9 +30,9 @@ Rails.application.routes.draw do
 
   get '/words', to: 'words#index'
 
-  resources :groups, only: %i[new create]
-  resources :words, only: %i[new create]
-  resources :users, only: %i[new create]
+  resources :groups, only: %i[new create update]
+  resources :words, only: %i[new create update]
+  resources :users, only: %i[new create edit]
 
   resources :performances, only: [:index, :show]
 end

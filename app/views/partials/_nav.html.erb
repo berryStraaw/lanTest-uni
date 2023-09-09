@@ -1,12 +1,40 @@
 <%= stylesheet_link_tag 'nav', media: 'all' %>
 
+<script>
+    function mobileMenuFunction() {
+        let mobileMenu = document.querySelector(".mobile-menu");
+        let mobileMenuBtn = document.querySelector("#mobile-menu-btn");
+        if (mobileMenu.style.display === "none" || mobileMenu.style.display === "") {
+            mobileMenu.style.display = "flex";
+            mobileMenuBtn.innerHTML = '<iconify-icon icon="iconamoon:menu-burger-horizontal-bold" width="36"></iconify-icon>';
+        } 
+        else {
+            mobileMenu.style.display = "none";
+            mobileMenuBtn.innerHTML = '<iconify-icon icon="iconamoon:menu-burger-horizontal-bold" width="36"></iconify-icon>';
+        }
+    }
+</script>
+
 <nav>
-    <%= link_to 'lanTest', root_path%>
-    <%= link_to 'User', '/user' %>
-    <%= link_to 'tests', '/tests'%>
-    <%= link_to 'performance', '/performances'%>
-    <%= link_to 'home', root_path%>
+    <div class="navLogo">
+        <%= link_to 'lanTest', root_path%>
+    </div>
     <% if user_signed_in? %> 
-        <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
-    <% end %>
+            <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "nav_sign_out_btn" %> 
+        <% end %>
+    <div class= "navLinks">
+        <%= link_to 'User', '/user' %>
+        <%= link_to 'tests', '/tests'%>
+        <%= link_to 'performance', '/performances'%>
+        <%= link_to 'home', root_path%>
+        <strong id="mobile-menu-btn" onclick="mobileMenuFunction()">
+            <iconify-icon icon="iconamoon:menu-burger-horizontal-bold" width="36"></iconify-icon>
+        </strong>
+    </div>
 </nav>
+<div class="mobile-menu">
+        <%= link_to 'User', '/user' %>
+        <%= link_to 'tests', '/tests'%>
+        <%= link_to 'performance', '/performances'%>
+        <%= link_to 'home', root_path%>
+    </div>

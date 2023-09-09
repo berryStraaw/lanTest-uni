@@ -1,24 +1,28 @@
-<h1>Performances</h1>
+<%= stylesheet_link_tag 'performances', media: 'all' %>
+
+<h2>Results of <%=@test.groups[0].name%> test</h2>
 
 
-<% if @test.name%>
-    <%= @test.name%>
-<% end %>
-<br>
+<div class="performancesDisplay">
+<div class="performancesDisplayInner">
 
-the questions were:
+<b>The questions asked were:</b>
 <% @questions.each do |question| %>
     <%=question%>
 <%end%>
-<br>
-the answers were:
+<div></div>
+<div></div>
+<b>The correct answers were:</b>
 <% @answers.each do |answer| %>
     <%=answer%>
 <%end%>
-<br>
-the inputs were:
+<div></div><div></div>
+<b>Your inputs were:</b>
 <% @input.each do |input| %>
     <%=input%>
 <%end%>
-<br>
+<div></div><div></div>
 you got <%=@correct_answers%> questions correct out of <%= @questions.length%>
+
+</div>
+</div>

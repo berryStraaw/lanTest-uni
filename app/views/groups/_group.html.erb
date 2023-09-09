@@ -1,12 +1,18 @@
 <%= turbo_frame_tag "group_#{group.id}" do %>
  <div class= "blockBasicStyle tile tileText">
-    <iconify-icon icon="tabler:edit" width="24" height="24"></iconify-icon>
-    <span class="tileFill">
+    <%
+=begin%>
+ <iconify-icon icon="tabler:edit" width="24" height="24"></iconify-icon> 
+<%
+=end%>
+    <span class="tileFill" id="group_<%= group.id %>_name">
     <%= link_to group.name, group_words_path(group), data: { turbo_action: 'replace', turbo_frame: 'words' }%>
     </span>
     <%= link_to language_group_path(language_id: group.language_id, id: group.id), data: { turbo_action: 'replace', turbo_frame: "group#{group.id}", turbo_method: :delete } do %>
       <iconify-icon icon="material-symbols:delete-outline" width="24" height="24"></iconify-icon>
     <% end %>
+
+    <iconify-icon icon="tabler:edit" width="24" height="24" onclick="editGroup(<%= group.id %>)"></iconify-icon>
 
     <%= link_to tests_path(user_id: group.language.user.id, group_id: group.id), data: { turbo: "false" }, method: :post do %>
       <iconify-icon icon="typcn:arrow-right-outline" width="24" height="24"></iconify-icon>

@@ -1,4 +1,71 @@
 nav{
-    background-color:red;
+    background-color:lightgray;
     width: 100vw;
+    height: 70px;
+    margin-bottom: 28px;
+    display: flex;
+    justify-content: space-evenly;
 }
+
+nav form{
+  display: flex;
+  align-items: center;
+}
+
+nav .nav_sign_out_btn{
+  border:none;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  background-color: lightgrey;
+  font-size: 24px;
+}
+
+.navLinks{
+    display: flex;
+    align-items: center;
+    gap:20px;
+    font-size: 24px;
+}
+
+.navLinks form{
+    display: inline;
+}
+.navLogo{
+    line-height: 70px;
+    font-size: 36px;
+}
+
+.mobile-menu {
+    color: white;
+    display: none;
+    position: absolute;
+    width: 50vw;
+    right: 0;
+    background-color: lightgray;
+    margin-top: -28px;
+    padding-bottom: 12px;
+  }
+
+  .mobile-menu a, .blockActions form{
+    margin-top: 12px;
+  }
+
+  #mobile-menu-btn {
+    display: none;
+  }
+
+
+@media (max-width: 900px) {
+    #mobile-menu-btn {
+      display: block;
+    }
+    nav .navLinks a {
+      display: none;
+    }
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+    }
+  }
